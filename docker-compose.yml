@@ -1,0 +1,38 @@
+data:
+  # image: tianon/true:latest (docker/fig#919)
+  image: busybox:latest
+  volumes:
+    - /data
+  entrypoint: /bin/echo
+
+redis:
+  image: redis:2.8
+  volumes_from:
+    - data
+  restart: always
+
+builder:
+  build: .
+  ports:
+    - "8080"
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - lib/:/usr/src/app/lib/
+    - src/:/usr/src/app/src/
+    - test/:/usr/src/app/test/
+  links:
+    - redis
+  environment:
+    NODE_ENV: development
+  command: /bin/echo
+
+www:
+  build: .
+  ports:
+    - "8080"
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+  links:
+    - redis
+  restart: always
+
