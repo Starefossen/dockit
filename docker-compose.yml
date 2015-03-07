@@ -18,8 +18,8 @@ builder:
   volumes:
     - /var/run/docker.sock:/var/run/docker.sock
     - lib/:/usr/src/app/lib/
-    - src/:/usr/src/app/src/
-    - test/:/usr/src/app/test/
+    - src/:/usr/src/app/src/:ro
+    - test/:/usr/src/app/test/:ro
   links:
     - redis
   environment:
