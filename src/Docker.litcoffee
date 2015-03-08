@@ -11,7 +11,7 @@
       request uri: "#{@socket}/containers/json", json: true, cb
 
     Docker.prototype.getImages = (cb) ->
-      request url: "#{@socket}/images/json", json: true, cb
+      request uri: "#{@socket}/images/json", json: true, cb
 
     Docker.prototype.container = (cid) ->
       new Container @, cid: cid
@@ -27,5 +27,5 @@
 
     Container.prototype.getStats = (cb) ->
       console.log "#{@socket}/stats"
-      request url: "#{@socket}/stats", json: true, cb
+      request uri: "#{@socket}/stats", json: true, cb
 
