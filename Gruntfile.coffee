@@ -66,10 +66,10 @@ module.exports = (grunt) ->
   # On watch events, if the changed file is a test file then configure
   # mochaTest to only run the tests from that file. Otherwise run all the
   # tests
-  defaultTestSrc = grunt.config 'mochaTest.test.src'
-  grunt.event.on 'watch', (action, filepath) ->
-    grunt.config 'mochaTest.test.src', defaultTestSrc
-    grunt.config 'mochaTest.test.src', filepath if filepath.match 'test/'
+  # defaultTestSrc = grunt.config 'mochaTest.test.src'
+  # grunt.event.on 'watch', (action, filepath) ->
+  #   grunt.config 'mochaTest.test.src', defaultTestSrc
+  #   grunt.config 'mochaTest.test.src', filepath if filepath.match 'test/'
 
   grunt.registerTask 'default', ['build']
   grunt.registerTask 'build', ['clean', 'coffee:compile']
