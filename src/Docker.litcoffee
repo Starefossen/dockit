@@ -26,6 +26,19 @@
       @
 
     Container.prototype.getStats = (cb) ->
-      console.log "#{@socket}/stats"
-      request uri: "#{@socket}/stats", json: true, cb
+      req = request uri: "#{@socket}/stats"
+      return req if typeof cb is 'undefined'
+
+      cnt = 0
+      end = (err, data) ->
+        req.abort()
+        cb err, data if ++cnt is 1
+
+      req.on 'data', (data) ->
+        try
+          end null, JSON.parse data
+        catch error
+          end error
+
+      req.on 'error', end
 
