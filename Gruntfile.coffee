@@ -34,13 +34,23 @@ module.exports = (grunt) ->
       ]
 
     mochaTest:
-      test:
-        options:
-          bail: true
-          clearRequireCache: true
-          reporter: 'progress'
-          require: 'coffee-script/register'
-        src: ['<%= pkg.directories.test %>/mocha.coffee']
+      options:
+        bail: true
+        clearRequireCache: true
+        reporter: 'progress'
+        require: 'coffee-script/register'
+
+      unit:
+        src: [
+          '<%= pkg.directories.test %>/unit/*.coffee'
+          '<%= pkg.directories.test %>/unit/*.litcoffee'
+        ]
+
+      functional:
+        src: [
+          '<%= pkg.directories.test %>/functional/*.coffee'
+          '<%= pkg.directories.test %>/functional/*.litcoffee'
+        ]
 
     coffee:
       options: bare: true

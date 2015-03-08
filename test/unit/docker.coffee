@@ -1,6 +1,6 @@
 assert = require 'assert'
 
-Docker = require '../src/Docker'
+Docker = require '../../src/Docker'
 docker = null
 
 describe 'Constructor', ->
@@ -20,7 +20,11 @@ describe '#getContainers', ->
 describe '#getStats', ->
   it 'should return stats for container', (done) ->
     @timeout 20000
-    docker.container('hipache_www_1').getStats (err, body) ->
-      console.log body
+    docker.container('hipache_www_1').getStats (err, data) ->
+      assert.ifError err
+      assert.deepEqual Object.keys(data), [
+        'read', 'network', 'cpu_stats', 'memory_stats', 'blkio_stats'
+      ]
+
       done()
 
