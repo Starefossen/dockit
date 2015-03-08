@@ -34,13 +34,23 @@ module.exports = (grunt) ->
       ]
 
     mochaTest:
-      test:
-        options:
-          bail: true
-          clearRequireCache: true
-          reporter: 'progress'
-          require: 'coffee-script/register'
-        src: ['<%= pkg.directories.test %>/mocha.coffee']
+      options:
+        bail: true
+        clearRequireCache: true
+        reporter: 'progress'
+        require: 'coffee-script/register'
+
+      unit:
+        src: [
+          '<%= pkg.directories.test %>/unit/*.coffee'
+          '<%= pkg.directories.test %>/unit/*.litcoffee'
+        ]
+
+      functional:
+        src: [
+          '<%= pkg.directories.test %>/functional/*.coffee'
+          '<%= pkg.directories.test %>/functional/*.litcoffee'
+        ]
 
     coffee:
       options: bare: true
@@ -56,10 +66,10 @@ module.exports = (grunt) ->
   # On watch events, if the changed file is a test file then configure
   # mochaTest to only run the tests from that file. Otherwise run all the
   # tests
-  defaultTestSrc = grunt.config 'mochaTest.test.src'
-  grunt.event.on 'watch', (action, filepath) ->
-    grunt.config 'mochaTest.test.src', defaultTestSrc
-    grunt.config 'mochaTest.test.src', filepath if filepath.match 'test/'
+  # defaultTestSrc = grunt.config 'mochaTest.test.src'
+  # grunt.event.on 'watch', (action, filepath) ->
+  #   grunt.config 'mochaTest.test.src', defaultTestSrc
+  #   grunt.config 'mochaTest.test.src', filepath if filepath.match 'test/'
 
   grunt.registerTask 'default', ['build']
   grunt.registerTask 'build', ['clean', 'coffee:compile']
